@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="FWE 英語文法：数量表現と There is / There are の2セクション練習">
+  <title>FWE Grammar Challenge</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%230b4f6c'/%3E%3Cpath d='M18 17h31v9H28v8h17v9H28v15H18z' fill='%23ffd166'/%3E%3C/svg%3E">
+  <style>
+    :root {
+      --navy: #073b4c;
+      --blue: #087e8b;
+      --cyan: #dff8fb;
+      --yellow: #ffd166;
+      --orange: #f98b45;
+      --green: #178f68;
+      --red: #c83e4d;
+      --ink: #18323a;
+      --muted: #5c7077;
+      --white: #ffffff;
+      --line: #bedbe0;
+      --shadow: 0 18px 45px rgba(7, 59, 76, .14);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, system-ui, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 8% 8%, rgba(255, 209, 102, .5) 0 7rem, transparent 7.1rem),
+        radial-gradient(circle at 94% 92%, rgba(8, 126, 139, .2) 0 10rem, transparent 10.1rem),
+        linear-gradient(145deg, #f3fdff 0%, #e9f8fb 52%, #fff9e9 100%);
+    }
+
+    button, input { font: inherit; }
+
+    button { touch-action: manipulation; }
+
+    .shell {
+      width: min(940px, calc(100% - 28px));
+      margin: 0 auto;
+      padding: 28px 0 44px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .brand-mark {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 900;
+      color: var(--navy);
+      letter-spacing: .02em;
+    }
+
+    .brand-badge {
+      display: grid;
+      place-items: center;
+      width: 48px;
+      height: 48px;
+      border-radius: 15px 6px 15px 6px;
+      color: var(--navy);
+      background: var(--yellow);
+      box-shadow: 4px 5px 0 var(--navy);
+      font-size: 1.2rem;
+    }
+
+    .brand-title { font-size: clamp(1.15rem, 3vw, 1.55rem); }
+
+    .student-chip {
+      display: none;
+      max-width: 42%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      padding: 8px 12px;
+      border: 2px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .8);
+      color: var(--navy);
+      font-weight: 800;
+    }
+
+    .student-chip.show { display: block; }
+
+    .card {
+      border: 2px solid rgba(7, 59, 76, .12);
+      border-radius: 28px;
+      background: rgba(255, 255, 255, .96);
+      box-shadow: var(--shadow);
+    }
+
+    .login-card {
+      max-width: 570px;
+      margin: 8vh auto 0;
+      padding: clamp(26px, 6vw, 46px);
+      text-align: center;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      margin: 0 0 10px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: var(--cyan);
+      color: var(--navy);
+      font-size: .88rem;
+      font-weight: 900;
+      letter-spacing: .08em;
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+
+    h1 {
+      margin-bottom: 10px;
+      color: var(--navy);
+      font-size: clamp(1.8rem, 6vw, 2.7rem);
+      line-height: 1.22;
+    }
+
+    .login-copy {
+      margin-bottom: 26px;
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.75;
+    }
+
+    .field {
+      display: grid;
+      gap: 7px;
+      margin-bottom: 16px;
+      text-align: left;
+    }
+
+    .field label {
+      color: var(--navy);
+      font-size: .94rem;
+      font-weight: 800;
+    }
+
+    .field input {
+      width: 100%;
+      min-height: 52px;
+      padding: 12px 14px;
+      border: 2px solid var(--line);
+      border-radius: 14px;
+      outline: none;
+      background: var(--white);
+      color: var(--ink);
+      font-size: 1.05rem;
+    }
+
+    .field input:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 4px rgba(8, 126, 139, .12);
+    }
+
+    .primary, .secondary, .listen-button, .report-button, .tab-button, .choice-button {
+      border: 0;
+      cursor: pointer;
+      font-weight: 900;
+      transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+    }
+
+    .primary:hover, .secondary:hover, .listen-button:hover, .report-button:hover, .tab-button:hover, .choice-button:hover {
+      transform: translateY(-2px);
+    }
+
+    .primary:focus-visible, .secondary:focus-visible, .listen-button:focus-visible,
+    .report-button:focus-visible, .tab-button:focus-visible, .choice-button:focus-visible {
+      outline: 4px solid rgba(255, 209, 102, .8);
+      outline-offset: 3px;
+    }
+
+    .primary {
+      width: 100%;
+      min-height: 54px;
+      padding: 13px 22px;
+      border-radius: 15px;
+      color: var(--white);
+      background: var(--navy);
+      box-shadow: 0 7px 0 #032630;
+      font-size: 1.04rem;
+    }
+
+    .primary:active { transform: translateY(4px); box-shadow: 0 3px 0 #032630; }
+    .primary:disabled { cursor: not-allowed; opacity: .45; transform: none; box-shadow: none; }
+
+    .error {
+      min-height: 24px;
+      margin: 14px 0 0;
+      color: var(--red);
+      font-weight: 800;
+    }
+
+    #game { display: none; }
+    #game.show { display: block; }
+
+    .tabs {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .tab-button {
+      min-height: 64px;
+      padding: 11px 15px;
+      border: 2px solid var(--line);
+      border-radius: 18px;
+      color: var(--navy);
+      background: rgba(255, 255, 255, .88);
+      text-align: left;
+    }
+
+    .tab-button.active {
+      border-color: var(--navy);
+      color: var(--white);
+      background: var(--navy);
+      box-shadow: 0 7px 0 rgba(7, 59, 76, .25);
+    }
+
+    .tab-label { display: block; font-size: .82rem; opacity: .82; }
+    .tab-title { display: block; margin-top: 3px; font-size: clamp(.92rem, 2.5vw, 1.06rem); }
+
+    .game-card { overflow: hidden; }
+
+    .game-head {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 18px;
+      align-items: center;
+      padding: clamp(20px, 4vw, 30px);
+      border-bottom: 2px solid #e2f0f2;
+      background: linear-gradient(110deg, #f7feff, #e8fafc);
+    }
+
+    .game-head h2 {
+      margin-bottom: 5px;
+      color: var(--navy);
+      font-size: clamp(1.25rem, 3.5vw, 1.7rem);
+    }
+
+    .game-head p { margin-bottom: 0; color: var(--muted); line-height: 1.6; }
+
+    .score-ring {
+      display: grid;
+      place-items: center;
+      width: 74px;
+      height: 74px;
+      border: 7px solid var(--yellow);
+      border-radius: 50%;
+      background: var(--white);
+      color: var(--navy);
+      font-size: 1.05rem;
+      font-weight: 900;
+    }
+
+    .progress-track {
+      height: 10px;
+      background: #dcecee;
+    }
+
+    .progress-bar {
+      width: 0;
+      height: 100%;
+      background: linear-gradient(90deg, var(--blue), #42c7b9);
+      transition: width .35s ease;
+    }
+
+    .question-area { padding: clamp(24px, 5vw, 42px); }
+
+    .counter {
+      margin-bottom: 16px;
+      color: var(--blue);
+      font-size: .9rem;
+      font-weight: 900;
+      letter-spacing: .06em;
+    }
+
+    .japanese {
+      margin-bottom: 14px;
+      color: var(--navy);
+      font-size: clamp(1.08rem, 3vw, 1.32rem);
+      font-weight: 800;
+      line-height: 1.65;
+    }
+
+    .english {
+      margin-bottom: 24px;
+      padding: 20px;
+      border-left: 7px solid var(--yellow);
+      border-radius: 4px 16px 16px 4px;
+      background: #fff9e8;
+      color: #102f38;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: clamp(1.18rem, 4vw, 1.7rem);
+      font-weight: 700;
+      line-height: 1.6;
+    }
+
+    .blank {
+      display: inline-block;
+      min-width: 7.5rem;
+      margin: 0 .18em;
+      border-bottom: 3px solid var(--navy);
+      color: var(--blue);
+      text-align: center;
+    }
+
+    .choices {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 13px;
+      margin-bottom: 22px;
+    }
+
+    .choices.four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+    .choice-button {
+      min-height: 58px;
+      padding: 12px 14px;
+      border: 3px solid var(--line);
+      border-radius: 16px;
+      color: var(--navy);
+      background: var(--white);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: clamp(1rem, 2.8vw, 1.18rem);
+    }
+
+    .choice-button.selected {
+      border-color: var(--blue);
+      background: var(--cyan);
+      box-shadow: 0 5px 0 rgba(8, 126, 139, .25);
+    }
+
+    .choice-button.correct {
+      border-color: var(--green);
+      background: #dff8ec;
+      color: #086040;
+    }
+
+    .choice-button.wrong {
+      border-color: var(--red);
+      background: #fff0f2;
+      color: #9b2432;
+    }
+
+    .choice-button:disabled { cursor: default; transform: none; }
+
+    .feedback {
+      display: none;
+      margin-top: 24px;
+      padding: 20px;
+      border: 2px solid var(--line);
+      border-radius: 18px;
+      background: #f8fdfe;
+    }
+
+    .feedback.show { display: block; animation: rise .3s ease; }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .feedback-title {
+      margin-bottom: 8px;
+      font-size: 1.2rem;
+      font-weight: 900;
+    }
+
+    .feedback-title.ok { color: var(--green); }
+    .feedback-title.ng { color: var(--red); }
+
+    .answer-line {
+      margin-bottom: 10px;
+      color: var(--navy);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 1.12rem;
+      line-height: 1.6;
+    }
+
+    .explanation { margin-bottom: 17px; line-height: 1.75; }
+
+    .feedback-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .listen-button, .secondary, .report-button {
+      min-height: 48px;
+      padding: 11px 17px;
+      border-radius: 13px;
+    }
+
+    .listen-button {
+      color: var(--navy);
+      background: var(--yellow);
+    }
+
+    .secondary {
+      margin-left: auto;
+      color: var(--white);
+      background: var(--blue);
+    }
+
+    .section-finish, .all-finish {
+      padding: clamp(30px, 7vw, 56px);
+      text-align: center;
+    }
+
+    .finish-icon { margin-bottom: 10px; font-size: 4rem; }
+
+    .section-finish h2, .all-finish h2 {
+      margin-bottom: 10px;
+      color: var(--navy);
+      font-size: clamp(1.65rem, 5vw, 2.45rem);
+    }
+
+    .big-score {
+      margin: 18px 0 24px;
+      color: var(--blue);
+      font-size: clamp(2rem, 8vw, 3.4rem);
+      font-weight: 900;
+    }
+
+    .finish-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .finish-buttons .secondary { margin-left: 0; }
+
+    .all-finish {
+      display: none;
+      margin-top: 18px;
+      border-color: var(--yellow);
+      background: linear-gradient(145deg, #ffffff, #fff8da);
+    }
+
+    .all-finish.show { display: block; animation: rise .45s ease; }
+
+    .report-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: var(--white);
+      background: var(--navy);
+      box-shadow: 0 6px 0 #032630;
+    }
+
+    .report-note {
+      max-width: 560px;
+      margin: 14px auto 0;
+      color: var(--muted);
+      font-size: .92rem;
+      line-height: 1.6;
+    }
+
+    .confetti-piece {
+      position: fixed;
+      z-index: 50;
+      top: -24px;
+      width: 11px;
+      height: 18px;
+      pointer-events: none;
+      animation: confetti-fall linear forwards;
+    }
+
+    @keyframes confetti-fall {
+      to { transform: translate3d(var(--drift), 110vh, 0) rotate(900deg); }
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    @media (max-width: 650px) {
+      .shell { width: min(100% - 18px, 940px); padding-top: 14px; }
+      .brand { margin-bottom: 13px; }
+      .brand-badge { width: 42px; height: 42px; }
+      .student-chip { max-width: 46%; font-size: .86rem; }
+      .login-card { margin-top: 5vh; border-radius: 22px; }
+      .tabs { gap: 7px; }
+      .tab-button { min-height: 68px; padding: 9px 10px; border-radius: 14px; }
+      .game-card { border-radius: 21px; }
+      .game-head { grid-template-columns: 1fr; }
+      .score-ring { width: auto; height: auto; justify-self: start; padding: 7px 13px; border-width: 3px; border-radius: 999px; }
+      .choices.four { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .secondary { width: 100%; margin-left: 0; }
+      .listen-button { width: 100%; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header class="brand">
+      <div class="brand-mark">
+        <span class="brand-badge" aria-hidden="true">FWE</span>
+        <span class="brand-title">Grammar Challenge</span>
+      </div>
+      <div class="student-chip" id="studentChip"></div>
+    </header>
+
+    <section class="card login-card" id="loginCard" aria-labelledby="loginTitle">
+      <p class="eyebrow">2 SECTIONS · 30 QUESTIONS</p>
+      <h1 id="loginTitle">数量表現 ＆ There is / are</h1>
+      <p class="login-copy">名前とパスワードを入力してスタート！<br>1問ずつ、答えと解説を確認しながら進みます。</p>
+      <form id="loginForm" novalidate>
+        <div class="field">
+          <label for="studentName">名前</label>
+          <input id="studentName" type="text" autocomplete="name" maxlength="40" placeholder="例：Ellie" required>
+        </div>
+        <div class="field">
+          <label for="password">パスワード</label>
+          <input id="password" type="password" autocomplete="current-password" placeholder="Password" required>
+        </div>
+        <button class="primary" type="submit">学習を始める</button>
+        <p class="error" id="loginError" role="alert"></p>
+      </form>
+    </section>
+
+    <section id="game" aria-live="polite">
+      <nav class="tabs" aria-label="セクション選択">
+        <button class="tab-button active" type="button" data-section="0">
+          <span class="tab-label">SECTION 1</span>
+          <span class="tab-title">数量表現・2択</span>
+        </button>
+        <button class="tab-button" type="button" data-section="1">
+          <span class="tab-label">SECTION 2</span>
+          <span class="tab-title">There is / are・4択</span>
+        </button>
+      </nav>
+
+      <article class="card game-card" id="gameCard"></article>
+
+      <section class="card all-finish" id="allFinish" aria-labelledby="finishTitle">
+        <div class="finish-icon" aria-hidden="true">🎉</div>
+        <p class="eyebrow">ALL CLEAR!</p>
+        <h2 id="finishTitle">You did it! Great job!</h2>
+        <p>2つのセクションを最後までやり切りました。</p>
+        <div class="big-score" id="totalScore"></div>
+        <div class="finish-buttons">
+          <a class="report-button" id="reportButton" href="#">✉️ 先生に「やったよ」と報告しよう</a>
+        </div>
+        <p class="report-note">ボタンを押すとメールアプリが開きます。内容を確認してから送信してください。</p>
+      </section>
+    </section>
+  </main>
+
+  <script>
+    const PASSWORD = "fweng";
+    const REPORT_TO = "1216ssence@gmail.com";
+
+    const quantifierQuestions = [
+      {
+        ja: "私の財布にはほとんどお金がありません。",
+        before: "There is ", after: " money in my wallet.",
+        options: ["a little", "little"], answer: "little",
+        explanation: "money は数えられない名詞です。little は「ほとんどない」という否定的な意味を表します。"
+      },
+      {
+        ja: "私はたくさんの本を持っています。",
+        before: "I have ", after: " books.",
+        options: ["a lot of", "some"], answer: "a lot of",
+        explanation: "a lot of は「たくさんの」。数えられる名詞の複数形にも、数えられない名詞にも使えます。"
+      },
+      {
+        ja: "彼はいくつかのゲームを持っています。",
+        before: "He has ", after: " games.",
+        options: ["few", "a few"], answer: "a few",
+        explanation: "games は数えられる名詞です。a few は「少しはある・いくつかある」という肯定的な意味です。"
+      },
+      {
+        ja: "今日、彼女はいっさい宿題がありません。",
+        before: "She doesn't have ", after: " homework today.",
+        options: ["any", "some"], answer: "any",
+        explanation: "否定文では any を使い、not ... any で「少しも〜ない」を表します。homework は数えられない名詞です。"
+      },
+      {
+        ja: "今日、彼女は宿題が少しあります。",
+        before: "She has ", after: " homework today.",
+        options: ["any", "some"], answer: "some",
+        explanation: "肯定文で「いくらかの・少しの」と言うときは some を使います。"
+      },
+      {
+        ja: "私たちにはあまり時間がありません。",
+        before: "We don't have ", after: " time.",
+        options: ["many", "much"], answer: "much",
+        explanation: "time は数えられない名詞なので much を使います。否定文の not much は「あまり多くない」です。"
+      },
+      {
+        ja: "図書館にはたくさんの生徒がいます。",
+        before: "There are ", after: " students in the library.",
+        options: ["many", "much"], answer: "many",
+        explanation: "students は数えられる名詞の複数形なので many を使います。"
+      },
+      {
+        ja: "私は東京に数人の友達がいます。",
+        before: "I have ", after: " friends in Tokyo.",
+        options: ["few", "a few"], answer: "a few",
+        explanation: "a few は数えられる名詞と使い、「少しはいる・数人いる」という意味です。"
+      },
+      {
+        ja: "彼にはここに友達がほとんどいないので、よく寂しく感じます。",
+        before: "He has ", after: " friends here, so he often feels lonely.",
+        options: ["few", "a few"], answer: "few",
+        explanation: "few は数えられる名詞と使い、「ほとんどいない」という否定的な意味を表します。"
+      },
+      {
+        ja: "冷蔵庫に牛乳が少しあるので、パンケーキを作れます。",
+        before: "There is ", after: " milk in the fridge, so we can make pancakes.",
+        options: ["little", "a little"], answer: "a little",
+        explanation: "milk は数えられない名詞です。a little は「少しはある」という肯定的な意味です。"
+      },
+      {
+        ja: "牛乳がほとんど残っていないので、パンケーキを作れません。",
+        before: "There is ", after: " milk left, so we cannot make pancakes.",
+        options: ["little", "a little"], answer: "little",
+        explanation: "little は数えられない名詞と使い、「ほとんどない」という否定的な意味を表します。"
+      },
+      {
+        ja: "何か質問はありますか。",
+        before: "Do you have ", after: " questions?",
+        options: ["some", "any"], answer: "any",
+        explanation: "あるかどうか分からないことをたずねる普通の疑問文では any を使います。"
+      },
+      {
+        ja: "お水を少しいただけますか。",
+        before: "Could I have ", after: " water?",
+        options: ["some", "any"], answer: "some",
+        explanation: "相手にお願いしたり、Yes の答えを期待したりする疑問文では some を使うことがあります。"
+      },
+      {
+        ja: "あなたは本を何冊持っていますか。",
+        before: "How ", after: " books do you have?",
+        options: ["many", "much"], answer: "many",
+        explanation: "books は数えられる名詞の複数形なので How many ...? を使います。"
+      },
+      {
+        ja: "今日は宿題がどのくらいありますか。",
+        before: "How ", after: " homework do you have today?",
+        options: ["many", "much"], answer: "much",
+        explanation: "homework は数えられない名詞なので How much ...? を使います。"
+      }
+    ];
+
+    const thereBeQuestions = [
+      {
+        ja: "テーブルの下に犬が1匹います。",
+        before: "There ", after: " a dog under the table.", answer: "is",
+        explanation: "a dog は単数なので、肯定文では There is ... を使います。"
+      },
+      {
+        ja: "机の上に紙が2枚あります。",
+        before: "There ", after: " two sheets of paper on the desk.", answer: "are",
+        explanation: "two sheets は複数なので、肯定文では There are ... を使います。"
+      },
+      {
+        ja: "今日は宿題が少しあります。",
+        before: "There ", after: " some homework today.", answer: "is",
+        explanation: "homework は数えられない名詞なので、There is ... を使います。"
+      },
+      {
+        ja: "今日は宿題がまったくありません。",
+        before: "There ", after: " any homework today.", answer: "isn't",
+        explanation: "homework は数えられない名詞です。「ない」は There isn't any ... で表します。"
+      },
+      {
+        ja: "私の財布にはほとんどお金がありません。",
+        before: "There ", after: " little money in my wallet.", answer: "is",
+        explanation: "money は数えられない名詞です。little 自体に「ほとんどない」の意味があるので、動詞は肯定形の is です。"
+      },
+      {
+        ja: "私の財布にはお金がまったくありません。",
+        before: "There ", after: " any money in my wallet.", answer: "isn't",
+        explanation: "money は数えられない名詞です。There isn't any ... で「少しもない」を表します。"
+      },
+      {
+        ja: "私の筆箱には鉛筆が数本あります。",
+        before: "There ", after: " a few pencils in my pencil case.", answer: "are",
+        explanation: "pencils は複数なので There are ... を使います。a few は「数本ある」です。"
+      },
+      {
+        ja: "私の筆箱には鉛筆が1本もありません。",
+        before: "There ", after: " any pencils in my pencil case.", answer: "aren't",
+        explanation: "pencils は複数なので、否定文では There aren't any ... を使います。"
+      },
+      {
+        ja: "今日は宿題がありますか。",
+        before: "", after: " there any homework today?", answer: "Is",
+        explanation: "homework は数えられない名詞です。疑問文では Is there ...? の語順にします。"
+      },
+      {
+        ja: "明日はテストがありますか。",
+        before: "", after: " there any tests tomorrow?", answer: "Are",
+        explanation: "tests は複数なので、疑問文では Are there ...? の語順にします。"
+      },
+      {
+        ja: "棚にはたくさんの本があります。",
+        before: "There ", after: " many books on the shelf.", answer: "are",
+        explanation: "books は複数なので There are ... を使います。"
+      },
+      {
+        ja: "もうあまり時間がありません。",
+        before: "There ", after: " much time left.", answer: "isn't",
+        explanation: "time は数えられない名詞です。There isn't much ... で「あまり多くない」を表します。"
+      },
+      {
+        ja: "びんにはジュースが少しあります。",
+        before: "There ", after: " a little juice in the bottle.", answer: "is",
+        explanation: "juice は数えられない名詞なので There is ... を使います。"
+      },
+      {
+        ja: "教室には生徒が1人もいません。",
+        before: "There ", after: " any students in the classroom.", answer: "aren't",
+        explanation: "students は複数なので、否定文では There aren't any ... を使います。"
+      },
+      {
+        ja: "公園には子どもが何人かいます。",
+        before: "There ", after: " some children in the park.", answer: "are",
+        explanation: "children は child の複数形なので There are ... を使います。"
+      }
+    ];
+
+    const sections = [
+      {
+        title: "数量表現・2択問題",
+        intro: "数えられる名詞・数えられない名詞と、言葉が持つニュアンスに注目しよう。",
+        questions: quantifierQuestions,
+        options: null
+      },
+      {
+        title: "There is / There are・4択問題",
+        intro: "There is / There are は、人や物を初めて話題に出し、「〜がいる／ある」と伝えるときに使う文法です。",
+        questions: thereBeQuestions,
+        options: ["is", "isn't", "are", "aren't"]
+      }
+    ];
+
+    const state = sections.map(() => ({ index: 0, score: 0, selected: null, checked: false, completed: false }));
+    let activeSection = 0;
+    let studentName = "";
+    let celebrated = false;
+
+    const loginCard = document.getElementById("loginCard");
+    const loginForm = document.getElementById("loginForm");
+    const loginError = document.getElementById("loginError");
+    const game = document.getElementById("game");
+    const gameCard = document.getElementById("gameCard");
+    const allFinish = document.getElementById("allFinish");
+    const studentChip = document.getElementById("studentChip");
+    const tabButtons = [...document.querySelectorAll(".tab-button")];
+
+    loginForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const name = document.getElementById("studentName").value.trim();
+      const password = document.getElementById("password").value;
+
+      if (!name) {
+        loginError.textContent = "名前を入力してください。";
+        document.getElementById("studentName").focus();
+        return;
+      }
+      if (password !== PASSWORD) {
+        loginError.textContent = "パスワードが違います。もう一度確認してください。";
+        document.getElementById("password").select();
+        return;
+      }
+
+      studentName = name;
+      studentChip.textContent = `${studentName} さん`;
+      studentChip.classList.add("show");
+      loginCard.hidden = true;
+      game.classList.add("show");
+      render();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    tabButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        activeSection = Number(button.dataset.section);
+        stopSpeaking();
+        render();
+      });
+    });
+
+    function render() {
+      tabButtons.forEach((button, index) => {
+        button.classList.toggle("active", index === activeSection);
+        button.setAttribute("aria-current", index === activeSection ? "page" : "false");
+        const status = state[index].completed ? " ✓" : "";
+        button.querySelector(".tab-label").textContent = `SECTION ${index + 1}${status}`;
+      });
+
+      const section = sections[activeSection];
+      const sectionState = state[activeSection];
+
+      if (sectionState.completed) {
+        renderSectionFinish(section, sectionState);
+      } else {
+        renderQuestion(section, sectionState);
+      }
+      updateAllFinish();
+    }
+
+    function renderQuestion(section, sectionState) {
+      const question = section.questions[sectionState.index];
+      const options = activeSection === 0 ? question.options : section.options;
+      const progress = (sectionState.index / section.questions.length) * 100;
+
+      gameCard.innerHTML = `
+        <header class="game-head">
+          <div>
+            <h2>${escapeHtml(section.title)}</h2>
+            <p>${escapeHtml(section.intro)}</p>
+          </div>
+          <div class="score-ring" aria-label="現在の得点">${sectionState.score} 点</div>
+        </header>
+        <div class="progress-track" aria-hidden="true"><div class="progress-bar" style="width:${progress}%"></div></div>
+        <div class="question-area">
+          <div class="counter">QUESTION ${sectionState.index + 1} / ${section.questions.length}</div>
+          <p class="japanese">${escapeHtml(question.ja)}</p>
+          <div class="english" id="questionSentence">${escapeHtml(question.before)}<span class="blank">?</span>${escapeHtml(question.after)}</div>
+          <div class="choices ${options.length === 4 ? "four" : ""}" role="group" aria-label="答えを選択">
+            ${options.map((option) => `<button type="button" class="choice-button" data-value="${escapeAttribute(option)}">${escapeHtml(option.toLowerCase())}</button>`).join("")}
+          </div>
+          <button type="button" class="primary" id="checkButton" disabled>答えをチェック</button>
+          <div class="feedback" id="feedback"></div>
+        </div>`;
+
+      const choiceButtons = [...gameCard.querySelectorAll(".choice-button")];
+      const checkButton = document.getElementById("checkButton");
+
+      choiceButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          if (sectionState.checked) return;
+          sectionState.selected = button.dataset.value;
+          choiceButtons.forEach((item) => item.classList.toggle("selected", item === button));
+          document.querySelector("#questionSentence .blank").textContent = displayAnswer(question, sectionState.selected);
+          checkButton.disabled = false;
+        });
+      });
+
+      checkButton.addEventListener("click", () => checkAnswer(section, sectionState, question));
+    }
+
+    function checkAnswer(section, sectionState, question) {
+      if (!sectionState.selected || sectionState.checked) return;
+      sectionState.checked = true;
+      const correct = normalize(sectionState.selected) === normalize(question.answer);
+      if (correct) sectionState.score += 1;
+
+      const correctSentence = `${question.before}${question.answer}${question.after}`;
+      const choiceButtons = [...gameCard.querySelectorAll(".choice-button")];
+      choiceButtons.forEach((button) => {
+        button.disabled = true;
+        if (normalize(button.dataset.value) === normalize(question.answer)) button.classList.add("correct");
+        if (button.dataset.value === sectionState.selected && !correct) button.classList.add("wrong");
+      });
+
+      document.querySelector("#questionSentence .blank").textContent = displayAnswer(question, question.answer);
+      document.querySelector(".score-ring").textContent = `${sectionState.score} 点`;
+      document.getElementById("checkButton").style.display = "none";
+
+      const feedback = document.getElementById("feedback");
+      feedback.classList.add("show");
+      feedback.innerHTML = `
+        <div class="feedback-title ${correct ? "ok" : "ng"}">${correct ? "✓ 正解！" : "もう一歩！答えを確認しよう"}</div>
+        <div class="answer-line">${highlightAnswer(question)}</div>
+        <p class="explanation">${escapeHtml(question.explanation)}</p>
+        <div class="feedback-actions">
+          <button type="button" class="listen-button" id="listenButton">🔊 英文を音読</button>
+          <button type="button" class="secondary" id="nextButton">${sectionState.index === section.questions.length - 1 ? "セクション結果へ" : "次の問題へ →"}</button>
+        </div>`;
+
+      document.getElementById("listenButton").addEventListener("click", () => speak(correctSentence));
+      document.getElementById("nextButton").addEventListener("click", () => nextQuestion(section, sectionState));
+      feedback.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+
+    function nextQuestion(section, sectionState) {
+      stopSpeaking();
+      if (sectionState.index >= section.questions.length - 1) {
+        sectionState.completed = true;
+      } else {
+        sectionState.index += 1;
+        sectionState.selected = null;
+        sectionState.checked = false;
+      }
+      render();
+      gameCard.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function renderSectionFinish(section, sectionState) {
+      const otherSection = activeSection === 0 ? 1 : 0;
+      const otherDone = state[otherSection].completed;
+      gameCard.innerHTML = `
+        <div class="section-finish">
+          <div class="finish-icon" aria-hidden="true">${sectionState.score >= 12 ? "🌟" : "👏"}</div>
+          <p class="eyebrow">SECTION ${activeSection + 1} COMPLETE</p>
+          <h2>${escapeHtml(section.title)} クリア！</h2>
+          <div class="big-score">${sectionState.score} / ${section.questions.length}</div>
+          <div class="finish-buttons">
+            <button type="button" class="secondary" id="retryButton">このセクションをもう一度</button>
+            ${otherDone ? "" : `<button type="button" class="primary" id="otherButton" style="width:auto">セクション${otherSection + 1}へ</button>`}
+          </div>
+        </div>`;
+
+      document.getElementById("retryButton").addEventListener("click", () => resetSection(activeSection));
+      const otherButton = document.getElementById("otherButton");
+      if (otherButton) {
+        otherButton.addEventListener("click", () => {
+          activeSection = otherSection;
+          render();
+          gameCard.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+      }
+    }
+
+    function resetSection(index) {
+      state[index] = { index: 0, score: 0, selected: null, checked: false, completed: false };
+      celebrated = false;
+      render();
+      gameCard.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function updateAllFinish() {
+      const allDone = state.every((item) => item.completed);
+      allFinish.classList.toggle("show", allDone);
+      if (!allDone) return;
+
+      const total = state.reduce((sum, item) => sum + item.score, 0);
+      document.getElementById("totalScore").textContent = `${total} / 30`;
+      const date = new Intl.DateTimeFormat("ja-JP", { year: "numeric", month: "long", day: "numeric" }).format(new Date());
+      const subject = `FWE文法ゲーム完了報告：${studentName}`;
+      const body = [
+        "先生へ",
+        "",
+        `${studentName}です。文法ゲームを最後までやりました。`,
+        "",
+        `数量表現・2択：${state[0].score} / 15`,
+        `There is / There are・4択：${state[1].score} / 15`,
+        `合計：${total} / 30`,
+        `学習日：${date}`,
+        "",
+        "確認をお願いします。"
+      ].join("\n");
+      document.getElementById("reportButton").href = `mailto:${REPORT_TO}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+      if (!celebrated) {
+        celebrated = true;
+        launchConfetti();
+      }
+    }
+
+    function displayAnswer(question, answer) {
+      return question.before === "" ? answer.charAt(0).toUpperCase() + answer.slice(1).toLowerCase() : answer.toLowerCase();
+    }
+
+    function highlightAnswer(question) {
+      const shown = displayAnswer(question, question.answer);
+      return `${escapeHtml(question.before)}<strong>${escapeHtml(shown)}</strong>${escapeHtml(question.after)}`;
+    }
+
+    function normalize(value) {
+      return value.toLowerCase().replace(/[’]/g, "'").trim();
+    }
+
+    function speak(text) {
+      if (!("speechSynthesis" in window)) {
+        alert("このブラウザは音読機能に対応していません。");
+        return;
+      }
+      stopSpeaking();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = "en-US";
+      utterance.rate = 0.82;
+      utterance.pitch = 1;
+      const voices = window.speechSynthesis.getVoices();
+      const preferredVoice = voices.find((voice) => voice.lang === "en-US") || voices.find((voice) => voice.lang.startsWith("en"));
+      if (preferredVoice) utterance.voice = preferredVoice;
+      window.speechSynthesis.speak(utterance);
+    }
+
+    function stopSpeaking() {
+      if ("speechSynthesis" in window) window.speechSynthesis.cancel();
+    }
+
+    function launchConfetti() {
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      const colors = ["#ffd166", "#087e8b", "#ef476f", "#06d6a0", "#118ab2", "#f98b45"];
+      for (let i = 0; i < 120; i += 1) {
+        const piece = document.createElement("span");
+        piece.className = "confetti-piece";
+        piece.style.left = `${Math.random() * 100}vw`;
+        piece.style.background = colors[i % colors.length];
+        piece.style.setProperty("--drift", `${(Math.random() - .5) * 240}px`);
+        piece.style.animationDuration = `${2.6 + Math.random() * 2.2}s`;
+        piece.style.animationDelay = `${Math.random() * .7}s`;
+        piece.style.borderRadius = i % 3 === 0 ? "50%" : "2px";
+        document.body.appendChild(piece);
+        window.setTimeout(() => piece.remove(), 5600);
+      }
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function escapeAttribute(value) {
+      return escapeHtml(value);
+    }
+  </script>
+</body>
+</html>
